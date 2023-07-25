@@ -48,7 +48,7 @@ def get_reference_file(bin_file):
 def main():
     #print(sys.argv[0] + ' ' + sys.argv[1] + ' ' + sys.argv[2])
 
-    # 1.将bin文件转成mem文件
+    # 1.将bin文件转成mem文件（inst.data）
     cmd = r'python ../../tools/BinToMem_CLI.py' + ' ' + sys.argv[1] + ' ' + sys.argv[2]
     f = os.popen(cmd)
     f.close()
@@ -66,10 +66,11 @@ def main():
     process.wait(timeout=5)
     logfile.close()
 
-    # 4.比较结果
+# NOTE - 执行结果如何判断以及对比过程呢??? 
+    # 4.比较结果  FIXME
     ref_file = get_reference_file(sys.argv[1])
     if (ref_file != None):
-        # 如果文件大小不一致，直接报fail
+        # 如果文件大小不一致，直接报fail  NOTE - ref 对比如何定义呢
         if (os.path.getsize('signature.output') != os.path.getsize(ref_file)):
             print('!!! FAIL, size != !!!')
             return

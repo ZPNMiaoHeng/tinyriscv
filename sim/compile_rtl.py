@@ -64,5 +64,6 @@ def main():
     process = subprocess.Popen(iverilog_cmd)
     process.wait(timeout=5)
 
+# 确保main()函数在脚本作为主程序运行时被调用，并在main()函数执行完毕后退出程序。 
 if __name__ == '__main__':
     sys.exit(main())

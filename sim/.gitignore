@@ -2,7 +2,8 @@
 *.o
 *.ko
 *.obj
-
+*.vcd
+*.log
 inst.data
 out.vvp
 tinyriscv_soc_tb.vcd
