@@ -4,6 +4,7 @@
 *.obj
 *.vcd
 *.log
+ysyx
 inst.data
 out.vvp
 tinyriscv_soc_tb.vcd

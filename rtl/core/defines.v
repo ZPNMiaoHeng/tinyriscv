@@ -15,6 +15,7 @@
  */
 
 `define CpuResetAddr 32'h0
+// `define CpuResetAddr 32'h30000000
 
 `define RstEnable 1'b0
 `define RstDisable 1'b1

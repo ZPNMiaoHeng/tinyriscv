@@ -32,6 +32,9 @@ module timer(
 
     );
 
+    // localparam REG_CTRL = 4'h0;
+    // localparam REG_COUNT = 4'h4;
+    // localparam REG_VALUE = 4'h8;
     localparam REG_CTRL = 4'h0;
     localparam REG_COUNT = 4'h4;
     localparam REG_VALUE = 4'h8;
@@ -78,14 +81,14 @@ module timer(
             if (we_i == `WriteEnable) begin
                 case (addr_i[3:0])
                     REG_CTRL: begin
-                        timer_ctrl <= {data_i[31:3], (timer_ctrl[2] & (~data_i[2])), data_i[1:0]};
+                        timer_ctrl <= {data_i[31:3], (timer_ctrl[2] & (~data_i[2])), data_i[1:0]}; // NOTE - time_ctrlp[2]
                     end
                     REG_VALUE: begin
                         timer_value <= data_i;
                     end
                 endcase
             end else begin
-                if ((timer_ctrl[0] == 1'b1) && (timer_count >= timer_value)) begin
+                if ((timer_ctrl[0] == 1'b1) && (timer_count >= timer_value)) begin     // time interrupt
                     timer_ctrl[0] <= 1'b0;
                     timer_ctrl[2] <= 1'b1;
                 end
