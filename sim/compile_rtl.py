@@ -27,6 +27,8 @@ def main():
     # testbench文件
     iverilog_cmd.append(rtl_dir + tb_file)
     # ../rtl/core
+
+    # NOTE - 修改编译rtl
     iverilog_cmd.append(rtl_dir + r'/ysyx/build/ysyx_tinyriscv.v')
     # iverilog_cmd.append(rtl_dir + r'/rtl/core/clint.v')
     # iverilog_cmd.append(rtl_dir + r'/rtl/core/csr_reg.v')
