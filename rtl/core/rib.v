@@ -116,6 +116,10 @@ module rib(
     // 仲裁逻辑
     // 固定优先级仲裁机制
     // 优先级由高到低：主设备3，主设备0，主设备2，主设备1
+    // 主设备3： uart
+    // 主设备0： tinyriscv_core 访存
+    // 主设备2： tinyriscv_jtag
+    // 主设备1： tinyriscv_core 取指
     always @ (*) begin
         if (req[3]) begin
             grant = grant3;
