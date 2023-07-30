@@ -22,6 +22,7 @@ module if_id(
     input wire clk,
     input wire rst,
 
+    // input wire inst_ready_i,
     input wire[`InstBus] inst_i,            // 指令内容
     input wire[`InstAddrBus] inst_addr_i,   // 指令地址
 
@@ -35,7 +36,7 @@ module if_id(
 
     );
 
-    wire hold_en = (hold_flag_i >= `Hold_If);
+    wire hold_en = (hold_flag_i >= `Hold_If);  // 暂停整条流水线
 
     wire[`InstBus] inst;
     gen_pipe_dff #(32) inst_ff(clk, rst, hold_en, `INST_NOP, inst_i, inst);

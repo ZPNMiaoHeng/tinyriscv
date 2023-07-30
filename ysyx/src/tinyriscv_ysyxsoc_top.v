@@ -164,18 +164,18 @@ module tinyriscv_soc_top(
         .rib_pc_ready_i(1'b1),
         .rib_pc_data_i(m1_data_o),
 
-        .jtag_reg_addr_i(jtag_reg_addr_o),
-        .jtag_reg_data_i(jtag_reg_data_o),
-        .jtag_reg_we_i(jtag_reg_we_o),
+        .jtag_reg_addr_i('b0),
+        .jtag_reg_data_i('b0),
+        .jtag_reg_we_i('b0),
         .jtag_reg_data_o(jtag_reg_data_i),
 
         .rib_hold_flag_i(rib_hold_flag_o),
-        .jtag_halt_flag_i(jtag_halt_req_o),
-        .jtag_reset_flag_i(jtag_reset_req_o),
+        .jtag_halt_flag_i('b0),
+        .jtag_reset_flag_i('b0),
 
         .int_i(int_flag)
     );
-// /*
+/*
     // rom模块例化
     rom u_rom(
         .clk(clk),
@@ -195,7 +195,7 @@ module tinyriscv_soc_top(
         .data_i(s1_data_o),
         .data_o(s1_data_i)
     );
-// */
+*/
     //TODO - ADD rib2axi module
 
     // timer模块例化
@@ -208,7 +208,7 @@ module tinyriscv_soc_top(
         .data_o(s2_data_i),
         .int_sig_o(timer0_int)
     );
-// /*
+/*
     // uart模块例化
     uart uart_0(
         .clk(clk),
@@ -254,7 +254,7 @@ module tinyriscv_soc_top(
         .spi_ss(spi_ss),
         .spi_clk(spi_clk)
     );
-// */
+*/
     // rib模块例化
     rib u_rib(
         .clk(clk),
@@ -326,7 +326,7 @@ module tinyriscv_soc_top(
 
         .hold_flag_o(rib_hold_flag_o)
     );
-// /*
+/*
     // 串口下载模块例化
     uart_debug u_uart_debug(
         .clk(clk),
@@ -363,5 +363,5 @@ module tinyriscv_soc_top(
         .halt_req_o(jtag_halt_req_o),
         .reset_req_o(jtag_reset_req_o)
     );
-// */
+*/
 endmodule

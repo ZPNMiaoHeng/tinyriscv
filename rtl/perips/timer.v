@@ -81,7 +81,7 @@ module timer(
             if (we_i == `WriteEnable) begin
                 case (addr_i[3:0])
                     REG_CTRL: begin
-                        timer_ctrl <= {data_i[31:3], (timer_ctrl[2] & (~data_i[2])), data_i[1:0]}; // NOTE - time_ctrlp[2]
+                        timer_ctrl <= {data_i[31:3], (timer_ctrl[2] & (~data_i[2])), data_i[1:0]}; // NOTE - time_ctrlp[2]:防止中断嵌套
                     end
                     REG_VALUE: begin
                         timer_value <= data_i;

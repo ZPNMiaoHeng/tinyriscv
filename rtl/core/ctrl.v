@@ -22,6 +22,9 @@ module ctrl(
 
     input wire rst,
 
+    // YSYX_MH - from if
+    input wire hold_flag_if_i,
+
     // from ex
     input wire jump_flag_i,
     input wire[`InstAddrBus] jump_addr_i,
@@ -51,7 +54,7 @@ module ctrl(
         // 默认不暂停
         hold_flag_o = `Hold_None;
         // 按优先级处理不同模块的请求
-        if (jump_flag_i == `JumpEnable || hold_flag_ex_i == `HoldEnable || hold_flag_clint_i == `HoldEnable) begin
+        if (jump_flag_i == `JumpEnable || hold_flag_ex_i == `HoldEnable || hold_flag_clint_i == `HoldEnable || hold_flag_if_i == `HoldEnable) begin
             // 暂停整条流水线
             hold_flag_o = `Hold_Id;
         end else if (hold_flag_rib_i == `HoldEnable) begin

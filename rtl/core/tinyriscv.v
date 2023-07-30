@@ -28,7 +28,9 @@ module tinyriscv(
     output wire rib_ex_req_o,                  // 访问外设请求
     output wire rib_ex_we_o,                   // 写外设标志
 
+    // output wire rib_pc_valid_o,                // YSYX_MH - 取指地址有效信号
     output wire[`MemAddrBus] rib_pc_addr_o,    // 取指地址
+    input wire rib_pc_ready_i,                 // YSYX_MH - 取到的指令内容有效信号
     input wire[`MemBus] rib_pc_data_i,         // 取到的指令内容
 
     input wire[`RegAddrBus] jtag_reg_addr_i,   // jtag模块读、写寄存器的地址
@@ -144,6 +146,7 @@ module tinyriscv(
     assign rib_ex_req_o = ex_mem_req_o;
     assign rib_ex_we_o = ex_mem_we_o;
 
+    // assign rib_pc_valid_o = !(hold_flag_o(1));  // ysyx_MH - 只要不是暂停流水线
     assign rib_pc_addr_o = pc_pc_o;
 
 
@@ -161,6 +164,7 @@ module tinyriscv(
     // ctrl模块例化
     ctrl u_ctrl(
         .rst(rst),
+        .hold_flag_if_i(!rib_pc_ready_i),    // YXYX_MH 只要没取到正确地址，就暂停整条流水线
         .jump_flag_i(ex_jump_flag_o),
         .jump_addr_i(ex_jump_addr_o),
         .hold_flag_ex_i(ex_hold_flag_o),
@@ -213,6 +217,7 @@ module tinyriscv(
     if_id u_if_id(
         .clk(clk),
         .rst(rst),
+        // .inst_ready_i(rib_pc_ready_i)    // YXYX_MH - 正确地址有效信号
         .inst_i(rib_pc_data_i),
         .inst_addr_i(pc_pc_o),
         .int_flag_i(int_i),
@@ -229,7 +234,7 @@ module tinyriscv(
         .inst_addr_i(if_inst_addr_o),
         .reg1_rdata_i(regs_rdata1_o),
         .reg2_rdata_i(regs_rdata2_o),
-        .ex_jump_flag_i(ex_jump_flag_o),
+        .ex_jump_flag_i(ex_jump_flag_o),    //FIXME - unuse
         .reg1_raddr_o(id_reg1_raddr_o),
         .reg2_raddr_o(id_reg2_raddr_o),
         .inst_o(id_inst_o),
